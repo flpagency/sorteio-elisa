@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenda Elisa Cintra</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0d0d;--s:#181818;--s2:#222;--b:#2e2e2e;--gold:#e8b84b;--g2:#f5d680;--tx:#f0f0f0;--t2:#888;--green:#4caf7d;--red:#e05c5c;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:Barlow,sans-serif;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(232,184,75,0.07),transparent 70%);pointer-events:none;z-index:0;}
+#loading{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;}
+.spin{width:40px;height:40px;border:3px solid var(--b);border-top-color:var(--gold);border-radius:50%;animation:sp 0.8s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.ltx{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;color:var(--gold);}
+#ls{position:fixed;inset:0;background:var(--bg);z-index:998;display:none;align-items:center;justify-content:center;padding:1rem;}
+.lb{background:var(--s);border:1px solid var(--b);border-radius:20px;padding:2rem 1.75rem;width:100%;max-width:360px;text-align:center;}
+.ll{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.25rem;}
+.ls2{font-size:0.82rem;color:var(--t2);margin-bottom:1.75rem;}
+.lb input{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:0.75rem 1rem;color:var(--tx);font-family:Barlow,sans-serif;font-size:1rem;outline:none;text-align:center;transition:border-color 0.2s;margin-bottom:0.75rem;}
+.lb input:focus{border-color:var(--gold);}
+.bl{width:100%;padding:0.8rem;background:var(--gold);border:none;border-radius:10px;color:#0d0d0d;font-family:Barlow,sans-serif;font-weight:700;font-size:1rem;cursor:pointer;}
+.bl:hover{background:var(--g2);}
+.le{color:var(--red);font-size:0.82rem;margin-top:0.5rem;display:none;}
+header{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;padding:0 1.25rem;height:56px;}
+.brand{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.08em;color:var(--gold);}
+.tabs{display:flex;gap:0.2rem;}
+.tab{padding:0.4rem 0.85rem;border-radius:8px;border:none;background:transparent;color:var(--t2);font-family:Barlow,sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.18s;}
+.tab.active{background:var(--gold);color:#0d0d0d;}
+.tab:hover:not(.active){background:var(--s2);color:var(--tx);}
+.bout{background:transparent;border:1px solid var(--b);color:var(--t2);padding:0.3rem 0.7rem;border-radius:7px;font-family:Barlow,sans-serif;font-size:0.75rem;font-weight:600;cursor:pointer;}
+.bout:hover{border-color:var(--red);color:var(--red);}
+main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.5rem 1rem 5rem;}
+.page{display:none;} .page.active{display:block;}
+.card{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:1.25rem;margin-bottom:1rem;}
+.ct{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;color:var(--gold);margin-bottom:1rem;}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;}
+@media(max-width:480px){.fg{grid-template-columns:1fr;}}
+.fi label{display:block;font-size:0.72rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.35rem;}
+.fi input{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:0.65rem 0.9rem;color:var(--tx);font-family:Barlow,sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+.fi input:focus{border-color:var(--gold);}
+.fc{grid-column:1/-1;}
+.pp{background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:0.9rem 1rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;}
+.pv{text-align:center;} .pvn{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold);} .pvl{font-size:0.68rem;color:var(--t2);text-transform:uppercase;}
+.pd{width:1px;height:36px;background:var(--b);}
+.pw{margin-bottom:0.9rem;} .pwl{display:flex;justify-content:space-between;font-size:0.72rem;color:var(--t2);margin-bottom:0.35rem;}
+.pb{height:6px;background:var(--s2);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--gold),var(--g2));border-radius:99px;transition:width 0.4s ease;}
+.btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.65rem 1.4rem;border-radius:10px;border:none;font-family:Barlow,sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.18s;}
+.bg{background:var(--gold);color:#0d0d0d;} .bg:hover{background:var(--g2);transform:translateY(-1px);}
+.bo{background:transparent;border:1px solid var(--b);color:var(--t2);} .bo:hover{border-color:var(--gold);color:var(--gold);}
+.br{background:var(--red);color:white;} .br:hover{opacity:0.85;}
+.bs{padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:8px;}
+.df{display:flex;} .gp{gap:0.6rem;} .je{justify-content:flex-end;} .mt{margin-top:0.75rem;}
+.tw{display:none;margin-top:1rem;} .tw.show{display:block;}
+.tk{background:#fff;color:#111;border-radius:12px;padding:1.5rem;font-family:'DM Mono',monospace;font-size:0.82rem;line-height:1.8;border:2px dashed #ccc;position:relative;overflow:hidden;}
+.tk::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#e8b84b,#f5d680,#e8b84b);}
+.tkh{text-align:center;border-bottom:1px dashed #ccc;padding-bottom:0.75rem;margin-bottom:0.75rem;}
+.tkt{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.12em;color:#111;}
+.tkb{font-size:0.9rem;font-weight:700;color:#444;margin-top:0.2rem;font-family:Barlow,sans-serif;}
+.tkl{display:flex;gap:0.5rem;margin:0.2rem 0;} .tkll{color:#555;min-width:80px;} .tklv{color:#111;font-weight:500;}
+.tkn{margin:0.75rem 0;padding:0.75rem;background:#f8f8f8;border-radius:8px;border:1px solid #e0e0e0;text-align:center;}
+.tknl{font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;font-family:Barlow,sans-serif;font-weight:700;}
+.tknv{font-size:0.9rem;font-weight:500;color:#111;letter-spacing:0.04em;line-height:1.7;}
+.tkf{text-align:center;border-top:1px dashed #ccc;padding-top:0.75rem;margin-top:0.75rem;}
+.tkd{font-size:0.8rem;color:#444;margin-bottom:0.2rem;}
+.tkg{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.15em;color:#e8b84b;}
+.tks{text-align:center;color:#bbb;font-size:0.7rem;margin:0.3rem 0;}
+.cb{width:100%;margin-top:0.75rem;padding:0.75rem;background:#25D366;border:none;border-radius:10px;color:white;font-family:Barlow,sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+.cb:hover{opacity:0.9;}
+.sr{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.25rem;}
+.st{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:0.9rem;text-align:center;}
+.sv{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);}
+.sl{font-size:0.68rem;color:var(--t2);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.1rem;}
+.sw{background:var(--s);border:1px solid var(--b);border-radius:16px;padding:1.25rem;margin-bottom:1rem;}
+.swt{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.9rem;}
+.swr{display:flex;gap:0.6rem;align-items:flex-end;} .swr .fi{flex:1;margin:0;}
+.wr{display:none;margin-top:1rem;border-radius:12px;overflow:hidden;}
+.wr.found{display:block;background:rgba(76,175,125,0.08);border:1px solid rgba(76,175,125,0.35);padding:1rem 1.25rem;}
+.wr.nf{display:block;background:rgba(224,92,92,0.08);border:1px solid rgba(224,92,92,0.3);padding:1rem 1.25rem;}
+.wrl{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem;}
+.wr.found .wrl{color:var(--green);} .wr.nf .wrl{color:var(--red);}
+.wn{font-size:1.2rem;font-weight:700;margin-bottom:0.2rem;}
+.wp{font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--t2);margin-bottom:0.6rem;}
+.wnum{display:inline-block;background:rgba(232,184,75,0.15);border:1px solid rgba(232,184,75,0.4);color:var(--gold);padding:0.3rem 0.9rem;border-radius:8px;font-family:'DM Mono',monospace;font-size:1rem;}
+.wnf{font-size:0.9rem;color:var(--red);}
+.tt{width:100%;border-collapse:collapse;}
+.tt th{text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;color:var(--t2);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--b);font-weight:700;}
+.tt td{padding:0.55rem 0.75rem;font-size:0.85rem;border-bottom:1px solid rgba(46,46,46,0.5);}
+.tt tr:last-child td{border-bottom:none;}
+.nc{display:inline-block;background:rgba(232,184,75,0.12);border:1px solid rgba(232,184,75,0.3);color:var(--gold);padding:0.2rem 0.55rem;border-radius:5px;font-family:'DM Mono',monospace;font-size:0.8rem;}
+.rb{background:rgba(224,92,92,0.06);border:1px solid rgba(224,92,92,0.2);border-radius:14px;padding:1.1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1rem;flex-wrap:wrap;}
+.rt h3{font-size:0.9rem;font-weight:700;color:var(--red);} .rt p{font-size:0.78rem;color:var(--t2);margin-top:0.2rem;}
+.em{text-align:center;padding:2.5rem 1rem;color:var(--t2);font-size:0.9rem;}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(16px);background:var(--s2);border:1px solid var(--b);color:var(--tx);padding:0.7rem 1.4rem;border-radius:10px;font-size:0.85rem;font-weight:600;opacity:0;transition:all 0.28s;z-index:9999;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.ok{border-color:var(--green);color:var(--green);}
+.toast.err{border-color:var(--red);color:var(--red);}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:500;align-items:center;justify-content:center;padding:1rem;}
+.ov.open{display:flex;}
+.md{background:var(--s);border:1px solid var(--b);border-radius:18px;padding:1.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;animation:up 0.22s ease;}
+@keyframes up{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;}
+.mt2{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.08em;color:var(--gold);}
+.xb{background:var(--s2);border:none;color:var(--t2);width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;}
+.xb:hover{background:var(--b);}
+.ir{display:flex;justify-content:space-between;padding:0.45rem 0;font-size:0.85rem;border-bottom:1px solid var(--b);}
+.ir:last-child{border-bottom:none;}
+.ir .lb2{color:var(--t2);} .ir .vl{font-weight:600;} .ir .vl.gd{color:var(--gold);font-family:'DM Mono',monospace;}
+.mn{display:flex;flex-wrap:wrap;gap:0.35rem;margin:0.75rem 0;}
+.sf{margin-bottom:1rem;}
+.sf label{display:block;font-size:0.75rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;}
+.sf input{width:100%;background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:0.65rem 0.9rem;color:var(--tx);font-family:Barlow,sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+.sf input:focus{border-color:var(--gold);}
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spin"></div><div class="ltx">Carregando...</div></div>
+
+<div id="ls">
+  <div class="lb">
+    <div class="ll">Elisa Cintra</div>
+    <div class="ls2">Sorteio Manager - Acesso Restrito</div>
+    <input type="password" id="li" placeholder="Digite a senha...">
+    <button class="bl" onclick="doLogin()">Entrar</button>
+    <div class="le" id="le">Senha incorreta</div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <header>
+    <div class="brand">Revenda Elisa Cintra</div>
+    <div class="tabs">
+      <button class="tab active" onclick="goPage('gerar',this)">Gerar</button>
+      <button class="tab" onclick="goPage('sorteio',this)">Sorteio</button>
+      <button class="tab" onclick="goPage('config',this)">Config</button>
+    </div>
+    <button class="bout" onclick="logout()">Sair</button>
+  </header>
+
+  <main>
+    <div id="page-gerar" class="page active">
+      <div class="card">
+        <div class="ct">Novo Bilhete</div>
+        <div class="fg">
+          <div class="fi"><label>Nome</label><input type="text" id="inp-name" placeholder="Nome do participante" oninput="calcPreview()"></div>
+          <div class="fi"><label>Telefone</label><input type="text" id="inp-phone" placeholder="55 11 99999-9999" oninput="calcPreview()"></div>
+          <div class="fi fc"><label>Quantidade de Pontos</label><input type="number" id="inp-points" placeholder="Ex: 60" min="0" oninput="calcPreview()"></div>
+        </div>
+        <div class="pp" id="preview" style="display:none">
+          <div class="pv"><div class="pvn" id="prev-pts">0</div><div class="pvl">Pontos</div></div>
+          <div class="pd"></div>
+          <div class="pv"><div class="pvn" id="prev-nums">0</div><div class="pvl">Nr da Sorte</div></div>
+          <div class="pd"></div>
+          <div class="pv"><div class="pvn" id="prev-rest">0</div><div class="pvl">Pts Restantes</div></div>
+        </div>
+        <div class="pw" id="pw" style="display:none">
+          <div class="pwl"><span>Proximo numero da sorte</span><span id="ptxt">0/20</span></div>
+          <div class="pb"><div class="pf" id="pfill" style="width:0%"></div></div>
+        </div>
+        <div class="df gp je"><button class="btn bg" onclick="generateTicket()">Gerar Bilhete</button></div>
+      </div>
+
+      <div class="tw" id="tw">
+        <div class="tk">
+          <div class="tks">=============================</div>
+          <div class="tkh"><div class="tkt">BILHETE DE SORTEIO</div><div class="tkb">Revenda Elisa Cintra</div></div>
+          <div class="tks">=============================</div>
+          <div class="tkn"><div class="tknl">Numeros da Sorte</div><div class="tknv" id="t-numbers">-</div></div>
+          <div class="tks">- - - - - - - - - - - - - - -</div>
+          <div style="padding:0.25rem 0">
+            <div class="tkl"><span class="tkll">Nome:</span><span class="tklv" id="t-name">-</span></div>
+            <div class="tkl"><span class="tkll">Telefone:</span><span class="tklv" id="t-phone">-</span></div>
+          </div>
+          <div class="tks">- - - - - - - - - - - - - - -</div>
+          <div class="tkf">
+            <div class="tkd">Sorteio as 20H | ID da Sala: 4511926</div>
+            <div class="tkd" id="t-date">-</div>
+            <div class="tkg" style="margin-top:0.5rem">BOA SORTE!</div>
+          </div>
+          <div class="tks">=============================</div>
+        </div>
+        <button class="cb" onclick="copyTicket()">Copiar Bilhete</button>
+        <div class="df gp mt" style="justify-content:center"><button class="btn bo bs" onclick="resetForm()">Novo Bilhete</button></div>
+      </div>
+    </div>
+
+    <div id="page-sorteio" class="page">
+      <div class="sr">
+        <div class="st"><div class="sv" id="s-p">0</div><div class="sl">Participantes</div></div>
+        <div class="st"><div class="sv" id="s-n">0</div><div class="sl">Nr Distribuidos</div></div>
+        <div class="st"><div class="sv" id="s-a">2500</div><div class="sl">Disponiveis</div></div>
+      </div>
+
+      <div class="sw">
+        <div class="swt">Buscar Ganhador</div>
+        <div class="swr">
+          <div class="fi"><label>Digite o numero sorteado</label><input type="text" id="search-num" placeholder="Ex: 0042" maxlength="4" oninput="this.value=this.value.replace(/\D/g,'')" onkeydown="if(event.key==='Enter')searchWinner()"></div>
+          <button class="btn bg" onclick="searchWinner()" style="flex-shrink:0">Buscar</button>
+        </div>
+        <div class="wr" id="wr">
+          <div class="wrl" id="wrl">-</div>
+          <div id="wb">-</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ct">Todos os Numeros</div>
+        <div id="all-numbers"><div class="em">Nenhum numero distribuido ainda</div></div>
+      </div>
+
+      <div class="rb">
+        <div class="rt"><h3>Apagar Planilha</h3><p>Zera TUDO - numeros, participantes e pontos.</p></div>
+        <button class="btn br bs" onclick="doReset()">Apagar Planilha</button>
+      </div>
+    </div>
+
+    <div id="page-config" class="page">
+      <div class="card">
+        <div class="ct">Data do Sorteio</div>
+        <div class="sf"><label>Data do proximo sorteio</label><input type="text" id="cfg-date" placeholder="Ex: 27/05/2026" maxlength="10" oninput="maskDate(this)"></div>
+        <div class="df je"><button class="btn bg" onclick="saveDate()">Salvar Data</button></div>
+      </div>
+      <div class="card">
+        <div class="ct">Alterar Senha</div>
+        <div class="sf"><label>Senha Atual</label><input type="password" id="cfg-old" placeholder="Senha atual"></div>
+        <div class="sf"><label>Nova Senha</label><input type="password" id="cfg-new" placeholder="Nova senha"></div>
+        <div class="sf"><label>Confirmar Nova Senha</label><input type="password" id="cfg-confirm" placeholder="Repita a nova senha"></div>
+        <div class="df je"><button class="btn bg" onclick="changePassword()">Salvar Senha</button></div>
+      </div>
+      <div class="card">
+        <div class="ct">Informacoes</div>
+        <div class="ir"><span class="lb2">Versao</span><span class="vl">1.0 Online</span></div>
+        <div class="ir"><span class="lb2">Numeros</span><span class="vl gd">0001 - 2500</span></div>
+        <div class="ir"><span class="lb2">Total disponivel</span><span class="vl">2500 numeros</span></div>
+        <div class="ir"><span class="lb2">Pontos por nr</span><span class="vl">20 pts</span></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="ov" id="ov" onclick="if(event.target===this)closeModal()">
+  <div class="md">
+    <div class="mh"><div class="mt2" id="m-title">-</div><button class="xb" onclick="closeModal()">X</button></div>
+    <div id="m-info"></div>
+    <div style="font-size:0.72rem;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin:0.75rem 0 0.4rem">Numeros da Sorte</div>
+    <div class="mn" id="m-nums"></div>
+    <button class="cb" onclick="copyFromModal()" style="margin-top:0.75rem">Copiar Bilhete</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+var fbConfig = {
+  apiKey: "AIzaSyAnxR3ENxCSVxxVqg6NM9-efvjRimRGKm4",
+  authDomain: "sorteio-elisa-fbc4f.firebaseapp.com",
+  projectId: "sorteio-elisa-fbc4f",
+  storageBucket: "sorteio-elisa-fbc4f.firebasestorage.app",
+  messagingSenderId: "973676080093",
+  appId: "1:973676080093:web:8c87b5538bae07e0146434"
+};
+
+var fbApp = initializeApp(fbConfig);
+var db = getFirestore(fbApp);
+var NUM_MIN = 1;
+var NUM_MAX = 2500;
+var PTS_LUCKY = 20;
+var STATE_DOC = doc(db, "sorteio", "statev1");
+var S = null;
+var loggedIn = false;
+
+async function init() {
+  try {
+    var snap = await getDoc(STATE_DOC);
+    if (!snap.exists()) {
+      var initial = { password: btoa('SenhaInicial123'), entries: [], usedNumbers: [], sorteioDate: '27/05/2026' };
+      await setDoc(STATE_DOC, initial);
+      S = initial;
+    } else {
+      S = snap.data();
+      if (!S.sorteioDate) { S.sorteioDate = '27/05/2026'; await setDoc(STATE_DOC, S); }
+    }
+    onSnapshot(STATE_DOC, function(d) {
+      if (d.exists()) {
+        S = d.data();
+        if (loggedIn && document.getElementById('page-sorteio').classList.contains('active')) { renderSorteio(); }
+      }
+    });
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('ls').style.display = 'flex';
+  } catch(e) {
+    document.getElementById('loading').innerHTML = '<div style="color:#e05c5c;text-align:center;padding:2rem">Erro ao conectar. Verifique sua conexao.<br><br><button onclick="location.reload()" style="padding:0.5rem 1rem;background:#e8b84b;border:none;border-radius:8px;font-weight:700;cursor:pointer">Tentar novamente</button></div>';
+  }
+}
+
+async function saveState() { await setDoc(STATE_DOC, S); }
+
+function pad(n) { return String(n).padStart(4, '0'); }
+
+function getRandNums(count) {
+  var usedSet = new Set(S.usedNumbers);
+  var pool = [];
+  for (var i = NUM_MIN; i <= NUM_MAX; i++) { var n = pad(i); if (!usedSet.has(n)) pool.push(n); }
+  var total = Math.min(count, pool.length);
+  for (var k = 0; k < total; k++) { var idx = k + Math.floor(Math.random()*(pool.length-k)); var tmp=pool[k]; pool[k]=pool[idx]; pool[idx]=tmp; }
+  return pool.slice(0, total).sort(function(a,b){ return parseInt(a)-parseInt(b); });
+}
+
+function getSorteioDate() { return (S && S.sorteioDate) ? S.sorteioDate : '27/05/2026'; }
+
+function buildText(name, phone, numbers) {
+  var sep = "=============================";
+  var sep2 = "- - - - - - - - - - - - - - -";
+  return sep+"\n\n       BILHETE DE SORTEIO\n     Revenda Elisa Cintra\n\n"+sep+"\n\n  Numeros: "+numbers.join(' - ')+"\n\n"+sep2+"\n\n  Nome: "+name+"\n  Telefone: "+phone+"\n\n"+sep2+"\n\n  Sorteio as 20H | ID da Sala: 4511926\n  Data: "+getSorteioDate()+"\n\n        BOA SORTE!\n\n"+sep;
+}
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show '+(type||'');
+  setTimeout(function(){ t.className='toast'; }, 2800);
+}
+
+window.doLogin = function() {
+  var input = document.getElementById('li').value;
+  if (input === atob(S.password)) {
+    loggedIn = true;
+    document.getElementById('ls').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('le').style.display = 'none';
+  } else {
+    document.getElementById('le').style.display = 'block';
+    document.getElementById('li').value = '';
+  }
+};
+
+window.logout = function() {
+  loggedIn = false;
+  document.getElementById('ls').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('li').value = '';
+};
+
+window.goPage = function(id, btn) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'sorteio') renderSorteio();
+  if (id === 'config') { var d = document.getElementById('cfg-date'); if (d && S && S.sorteioDate) d.value = S.sorteioDate; }
+};
+
+window.maskDate = function(el) {
+  var v = el.value.replace(/\D/g,'').slice(0,8);
+  if (v.length > 4) v = v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);
+  else if (v.length > 2) v = v.slice(0,2)+'/'+v.slice(2);
+  el.value = v;
+};
+
+window.saveDate = async function() {
+  var val = document.getElementById('cfg-date').value.trim();
+  if (!val || val.length < 10) return showToast('Digite a data completa!', 'err');
+  S.sorteioDate = val; await saveState();
+  showToast('Data salva: '+val, 'ok');
+};
+
+window.changePassword = async function() {
+  var old = document.getElementById('cfg-old').value;
+  var nw = document.getElementById('cfg-new').value;
+  var cf = document.getElementById('cfg-confirm').value;
+  if (old !== atob(S.password)) return showToast('Senha atual incorreta', 'err');
+  if (!nw) return showToast('Digite a nova senha', 'err');
+  if (nw !== cf) return showToast('Senhas nao coincidem', 'err');
+  if (nw.length < 6) return showToast('Minimo 6 caracteres', 'err');
+  S.password = btoa(nw); await saveState();
+  document.getElementById('cfg-old').value = '';
+  document.getElementById('cfg-new').value = '';
+  document.getElementById('cfg-confirm').value = '';
+  showToast('Senha alterada!', 'ok');
+};
+
+window.calcPreview = function() {
+  var pts = parseInt(document.getElementById('inp-points').value)||0;
+  var prev = document.getElementById('preview'), pw = document.getElementById('pw');
+  if (pts <= 0) { prev.style.display='none'; pw.style.display='none'; return; }
+  var nums = Math.floor(pts/PTS_LUCKY), rest = pts%PTS_LUCKY;
+  prev.style.display='flex'; pw.style.display='block';
+  document.getElementById('prev-pts').textContent = pts;
+  document.getElementById('prev-nums').textContent = nums;
+  document.getElementById('prev-rest').textContent = rest;
+  document.getElementById('ptxt').textContent = rest+'/20';
+  document.getElementById('pfill').style.width = (rest/PTS_LUCKY*100)+'%';
+};
+
+window.generateTicket = async function() {
+  var name = document.getElementById('inp-name').value.trim();
+  var phone = document.getElementById('inp-phone').value.trim();
+  var pts = parseInt(document.getElementById('inp-points').value)||0;
+  if (!name) return showToast('Digite o nome!');
+  if (!phone) return showToast('Digite o telefone!');
+  if (pts < PTS_LUCKY) return showToast('Minimo 20 pontos!');
+  if (S.usedNumbers.length >= NUM_MAX) return showToast('Todos os numeros foram distribuidos!', 'err');
+  var numCount = Math.floor(pts/PTS_LUCKY);
+  var numbers = getRandNums(numCount);
+  numbers.forEach(function(n){ S.usedNumbers.push(n); });
+  var existing = S.entries.find(function(e){ return e.phone === phone; });
+  if (existing) { existing.points += pts; existing.numbers = existing.numbers.concat(numbers); }
+  else { S.entries.push({ id: Date.now(), name: name, phone: phone, points: pts, numbers: numbers }); }
+  await saveState();
+  document.getElementById('t-name').textContent = name;
+  document.getElementById('t-phone').textContent = phone;
+  document.getElementById('t-numbers').textContent = numbers.join(' - ');
+  document.getElementById('t-date').textContent = 'Data do Sorteio: '+getSorteioDate();
+  document.getElementById('tw').classList.add('show');
+  document.getElementById('tw').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  showToast(numbers.length+' numero(s) gerado(s)!', 'ok');
+};
+
+window.resetForm = function() {
+  ['inp-name','inp-phone','inp-points'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('preview').style.display='none';
+  document.getElementById('pw').style.display='none';
+  document.getElementById('tw').classList.remove('show');
+};
+
+window.copyTicket = function() {
+  var name = document.getElementById('t-name').textContent;
+  var phone = document.getElementById('t-phone').textContent;
+  var numbers = document.getElementById('t-numbers').textContent.split(' - ');
+  navigator.clipboard.writeText(buildText(name, phone, numbers)).then(function(){ showToast('Copiado!', 'ok'); });
+};
+
+window.searchWinner = function() {
+  var raw = document.getElementById('search-num').value.trim();
+  if (!raw) return showToast('Digite um numero para buscar!');
+  var numStr = pad(parseInt(raw));
+  var result = document.getElementById('wr'), label = document.getElementById('wrl'), body = document.getElementById('wb');
+  var found = null;
+  for (var i = 0; i < S.entries.length; i++) { if (S.entries[i].numbers.indexOf(numStr) !== -1) { found = S.entries[i]; break; } }
+  if (found) {
+    result.className = 'wr found'; label.textContent = 'GANHADOR ENCONTRADO!';
+    body.innerHTML = '<div class="wn">'+found.name+'</div><div class="wp">'+found.phone+'</div><div class="wnum">Nr '+numStr+'</div><button onclick="copyWinner(\''+found.name+'\',\''+found.phone+'\',\''+numStr+'\')" style="margin-top:0.75rem;width:100%;padding:0.6rem;background:#25D366;border:none;border-radius:8px;color:white;font-family:Barlow,sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;">Copiar Ganhador</button>';
+  } else {
+    result.className = 'wr nf'; label.textContent = 'Numero nao encontrado';
+    body.innerHTML = '<div class="wnf">O numero '+numStr+' nao esta cadastrado.</div>';
+  }
+};
+
+window.copyWinner = function(name, phone, num) {
+  var text = 'GANHADOR DO SORTEIO\n\nNome: '+name+'\nTelefone: '+phone+'\nNumero da Sorte: '+num;
+  navigator.clipboard.writeText(text).then(function(){ showToast('Ganhador copiado!', 'ok'); });
+};
+
+function renderSorteio() {
+  var total = S.usedNumbers.length;
+  document.getElementById('s-p').textContent = S.entries.length;
+  document.getElementById('s-n').textContent = total;
+  document.getElementById('s-a').textContent = NUM_MAX - total;
+  var cont = document.getElementById('all-numbers');
+  if (!total) { cont.innerHTML = '<div class="em">Nenhum numero distribuido ainda</div>'; return; }
+  var rows = [];
+  S.entries.forEach(function(e){ e.numbers.forEach(function(n){ rows.push({ num:n, name:e.name, phone:e.phone, id:e.id }); }); });
+  rows.sort(function(a,b){ return parseInt(a.num)-parseInt(b.num); });
+  var html = '<table class="tt"><thead><tr><th>Nr</th><th>Participante</th><th>Telefone</th></tr></thead><tbody>';
+  rows.forEach(function(r){ html += '<tr style="cursor:pointer" onclick="openModal('+r.id+')"><td><span class="nc">'+r.num+'</span></td><td>'+r.name+'</td><td style="font-family:DM Mono,monospace;font-size:0.78rem;color:var(--t2)">'+r.phone+'</td></tr>'; });
+  html += '</tbody></table>';
+  cont.innerHTML = html;
+}
+
+var modalEntry = null;
+
+window.openModal = function(id) {
+  var e = S.entries.find(function(x){ return x.id === id; });
+  if (!e) return;
+  modalEntry = e;
+  document.getElementById('m-title').textContent = e.name;
+  document.getElementById('m-info').innerHTML = '<div class="ir"><span class="lb2">Telefone</span><span class="vl" style="font-family:DM Mono,monospace">'+e.phone+'</span></div><div class="ir"><span class="lb2">Total de pontos</span><span class="vl gd">'+e.points+' pts</span></div><div class="ir"><span class="lb2">Numeros da sorte</span><span class="vl gd">'+e.numbers.length+'</span></div>';
+  document.getElementById('m-nums').innerHTML = e.numbers.map(function(n){ return '<span class="nc">'+n+'</span>'; }).join('');
+  document.getElementById('ov').classList.add('open');
+};
+
+window.closeModal = function(){ document.getElementById('ov').classList.remove('open'); modalEntry = null; };
+
+window.copyFromModal = function() {
+  if (!modalEntry) return;
+  navigator.clipboard.writeText(buildText(modalEntry.name, modalEntry.phone, modalEntry.numbers)).then(function(){ showToast('Copiado!', 'ok'); });
+};
+
+window.doReset = async function() {
+  if (!confirm('Apagar tudo? Participantes, numeros e pontos serao zerados.')) return;
+  S.entries = []; S.usedNumbers = [];
+  document.getElementById('search-num').value = '';
+  document.getElementById('wr').className = 'wr';
+  await saveState(); renderSorteio();
+  showToast('Planilha apagada!', 'ok');
+};
+
+document.getElementById('li').addEventListener('keydown', function(e){ if (e.key === 'Enter') window.doLogin(); });
+
+init();
+</script>
+</body>
+</html>
