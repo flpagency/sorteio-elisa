@@ -182,7 +182,7 @@ main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.5rem 1r
           </div>
           <div class="tks">=============================</div>
         </div>
-        <button class="cb" onclick="copyTicket()">Copiar Bilhete</button>
+        <button class="cb" onclick="shareWhatsapp()">Enviar no WhatsApp</button>
         <div class="df gp mt" style="justify-content:center"><button class="btn bo bs" onclick="resetForm()">Novo Bilhete</button></div>
       </div>
     </div>
@@ -247,7 +247,7 @@ main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.5rem 1r
     <div id="m-info"></div>
     <div style="font-size:0.72rem;color:var(--t2);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin:0.75rem 0 0.4rem">Numeros da Sorte</div>
     <div class="mn" id="m-nums"></div>
-    <button class="cb" onclick="copyFromModal()" style="margin-top:0.75rem">Copiar Bilhete</button>
+    <button class="cb" onclick="shareFromModal()" style="margin-top:0.75rem">Enviar no WhatsApp</button>
   </div>
 </div>
 
@@ -435,6 +435,15 @@ window.copyTicket = function() {
   navigator.clipboard.writeText(buildText(name, phone, numbers)).then(function(){ showToast('Copiado!', 'ok'); });
 };
 
+window.shareWhatsapp = function() {
+  var name = document.getElementById('t-name').textContent;
+  var phone = document.getElementById('t-phone').textContent;
+  var numbers = document.getElementById('t-numbers').textContent.split(' - ');
+  var text = buildText(name, phone, numbers);
+  var url = 'https://wa.me/?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+};
+
 window.searchWinner = function() {
   var raw = document.getElementById('search-num').value.trim();
   if (!raw) return showToast('Digite um numero para buscar!');
@@ -489,6 +498,13 @@ window.closeModal = function(){ document.getElementById('ov').classList.remove('
 window.copyFromModal = function() {
   if (!modalEntry) return;
   navigator.clipboard.writeText(buildText(modalEntry.name, modalEntry.phone, modalEntry.numbers)).then(function(){ showToast('Copiado!', 'ok'); });
+};
+
+window.shareFromModal = function() {
+  if (!modalEntry) return;
+  var text = buildText(modalEntry.name, modalEntry.phone, modalEntry.numbers);
+  var url = 'https://wa.me/?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
 };
 
 window.doReset = async function() {
