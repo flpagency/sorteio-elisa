@@ -146,7 +146,7 @@ main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.5rem 1r
         <div class="ct">Novo Bilhete</div>
         <div class="fg">
           <div class="fi"><label>Nome</label><input type="text" id="inp-name" placeholder="Nome do participante" oninput="calcPreview()"></div>
-          <div class="fi"><label>Telefone</label><input type="text" id="inp-phone" placeholder="55 11 99999-9999" oninput="calcPreview()"></div>
+          <div class="fi"><label>Telefone (DDD + numero)</label><input type="text" id="inp-phone" placeholder="11 99999-9999" oninput="calcPreview()"></div>
           <div class="fi fc"><label>Quantidade de Pontos</label><input type="number" id="inp-points" placeholder="Ex: 60" min="0" oninput="calcPreview()"></div>
         </div>
         <div class="pp" id="preview" style="display:none">
@@ -440,7 +440,9 @@ window.shareWhatsapp = function() {
   var phone = document.getElementById('t-phone').textContent;
   var numbers = document.getElementById('t-numbers').textContent.split(' - ');
   var text = buildText(name, phone, numbers);
-  var url = 'https://wa.me/?text=' + encodeURIComponent(text);
+  var cleanPhone = phone.replace(/\D/g, '');
+  var fullPhone = '55' + cleanPhone;
+  var url = 'https://wa.me/' + fullPhone + '?text=' + encodeURIComponent(text);
   window.open(url, '_blank');
 };
 
@@ -503,7 +505,9 @@ window.copyFromModal = function() {
 window.shareFromModal = function() {
   if (!modalEntry) return;
   var text = buildText(modalEntry.name, modalEntry.phone, modalEntry.numbers);
-  var url = 'https://wa.me/?text=' + encodeURIComponent(text);
+  var cleanPhone = modalEntry.phone.replace(/\D/g, '');
+  var fullPhone = '55' + cleanPhone;
+  var url = 'https://wa.me/' + fullPhone + '?text=' + encodeURIComponent(text);
   window.open(url, '_blank');
 };
 
