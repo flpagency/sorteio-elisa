@@ -191,7 +191,7 @@ main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.5rem 1r
       <div class="sr">
         <div class="st"><div class="sv" id="s-p">0</div><div class="sl">Participantes</div></div>
         <div class="st"><div class="sv" id="s-n">0</div><div class="sl">Nr Distribuidos</div></div>
-        <div class="st"><div class="sv" id="s-a">2500</div><div class="sl">Disponiveis</div></div>
+        <div class="st"><div class="sv" id="s-a">3000</div><div class="sl">Disponiveis</div></div>
       </div>
 
       <div class="sw">
@@ -233,8 +233,8 @@ main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.5rem 1r
       <div class="card">
         <div class="ct">Informacoes</div>
         <div class="ir"><span class="lb2">Versao</span><span class="vl">1.0 Online</span></div>
-        <div class="ir"><span class="lb2">Numeros</span><span class="vl gd">0001 - 2500</span></div>
-        <div class="ir"><span class="lb2">Total disponivel</span><span class="vl">2500 numeros</span></div>
+        <div class="ir"><span class="lb2">Numeros</span><span class="vl gd">0001 - 3000</span></div>
+        <div class="ir"><span class="lb2">Total disponivel</span><span class="vl">3000 numeros</span></div>
         <div class="ir"><span class="lb2">Pontos por nr</span><span class="vl">20 pts</span></div>
       </div>
     </div>
@@ -269,7 +269,7 @@ var fbConfig = {
 var fbApp = initializeApp(fbConfig);
 var db = getFirestore(fbApp);
 var NUM_MIN = 1;
-var NUM_MAX = 2500;
+var NUM_MAX = 3000;
 var PTS_LUCKY = 20;
 var STATE_DOC = doc(db, "sorteio", "statev1");
 var S = null;
